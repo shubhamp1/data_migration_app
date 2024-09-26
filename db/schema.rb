@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2024_09_25_044738) do
     t.string "city", null: false
     t.string "province", null: false
     t.string "postal_code"
-    t.string "country", null: false
+    t.string "country"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id"

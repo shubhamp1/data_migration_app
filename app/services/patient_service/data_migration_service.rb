@@ -1,11 +1,13 @@
 require 'smarter_csv'
 require 'csv'
+require_relative '../utilities/error_handler'
 
 module PatientService
   class DataMigrationService
-    def initialize(csv_file)
+    def initialize(csv_file, error_handler = ErrorHandler.new)
       @csv_file = csv_file
       @errors = []
+      @error_handler = error_handler
     end
 
     def call
@@ -18,33 +20,36 @@ module PatientService
           patient_data = data[:patient_data]
           address_data = data[:address_data]
 
-          patient = Patient.find_or_initialize_by(health_identifier: patient_data[:health_identifier],
-                                                  health_province: patient_data[:health_province])
+          patient = find_or_initialize_patient(patient_data)
 
-          patient.update(patient_data)
-
-          if patient.valid?
-            patient.save!
+          if update_patient_data(patient, patient_data)
             create_or_update_address(patient, address_data)
             imported_patients += 1
           else
-            @errors << { row: row, errors: patient.errors.full_messages.join(", ") }
+            @error_handler.log_error(row, patient.errors.full_messages)
           end
         rescue StandardError => e
-          @errors << { row: row, errors: e.message }
+          @error_handler.log_error(nil, e.message)
         end
       end
 
-      save_error_report if @errors.any?
+      @error_handler.save_error_report if @error_handler.errors?
 
-      {
-        imported_patients: imported_patients,
-        total_time: (Time.now - start_time).round(2),
-        errors_count: @errors.size
-      }
+      result_summary(imported_patients, start_time)
     end
 
     private
+
+    def find_or_initialize_patient(patient_data)
+      Patient.find_or_initialize_by(
+        health_identifier: patient_data[:health_identifier],
+        health_province: patient_data[:health_province]
+      )
+    end
+
+    def update_patient_data(patient, patient_data)
+      patient.update(patient_data) && patient.valid? && patient.save!
+    end
 
     def format_patient_data(row)
       {
@@ -65,7 +70,6 @@ module PatientService
             apartment: row[:address_2],
             province: row[:address_province],
             city: row[:address_province],
-            country: 'Canada',
             postal_code: row[:address_postal_code],
 
           }
@@ -88,13 +92,12 @@ module PatientService
       data.is_a?(String) ? nil : data
     end
 
-    def save_error_report
-      CSV.open('migration_errors.csv', 'wb') do |csv|
-        csv << ['Row Data', 'Errors']
-        @errors.each do |error|
-          csv << [error[:row].to_s, error[:errors]]
-        end
-      end
+    def result_summary(imported_patients, start_time)
+      {
+        imported_patients: imported_patients,
+        total_time: (Time.now - start_time).round(2),
+        errors_count: @error_handler.errors_count
+      }
     end
   end
 end

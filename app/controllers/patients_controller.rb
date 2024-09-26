@@ -13,7 +13,7 @@ class PatientsController < ApplicationController
       flash[:notice] = "Migration completed! Imported #{result[:imported_patients]} patients in #{result[:total_time]} seconds."
       
       if result[:errors_count] > 0
-        flash[:alert] = "#{result[:errors_count]} records had errors. See 'migration_errors.csv' for details."
+        flash[:alert] = "#{result[:errors_count]} records had errors. See 'error_report.csv' for details."
       end
 
       redirect_to patients_path
