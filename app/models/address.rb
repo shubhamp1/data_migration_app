@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Address < ApplicationRecord
   extend Enumerize
 
@@ -13,12 +14,9 @@ class Address < ApplicationRecord
   # Association
   belongs_to :addressable, polymorphic: true
 
-
-
   # Validation
   validates :street, :city, :province, :postal_code, :country, presence: true
   validates_with ProvinceCountryValidator
-
 
   # Scope
 end

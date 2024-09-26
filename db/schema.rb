@@ -18,10 +18,11 @@ ActiveRecord::Schema.define(version: 2024_09_25_044738) do
   create_table "addresses", force: :cascade do |t|
     t.string "addressable_type", null: false
     t.bigint "addressable_id", null: false
-    t.string "street", null: false
+    t.string "street_address"
+    t.string "apartment"
     t.string "city", null: false
     t.string "province", null: false
-    t.string "postal_code", null: false
+    t.string "postal_code"
     t.string "country", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -29,10 +30,10 @@ ActiveRecord::Schema.define(version: 2024_09_25_044738) do
   end
 
   create_table "patients", force: :cascade do |t|
-    t.string "health_identifier"
+    t.integer "health_identifier"
     t.string "health_province"
     t.string "email"
-    t.string "phone"
+    t.string "phone_number"
     t.string "sex"
     t.string "first_name"
     t.string "last_name"

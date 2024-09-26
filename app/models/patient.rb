@@ -1,13 +1,12 @@
+# frozen_string_literal: true
 class Patient < ApplicationRecord
   extend Enumerize
 
   # Constant
   SEX_TYPE = %i[male female].freeze
 
-
-
   # Association
-  has_one :address, as: :addressable
+  has_one :address, as: :addressable, dependent: :destroy
 
   # Validation
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP, message: "invalid email format" }
@@ -16,7 +15,6 @@ class Patient < ApplicationRecord
 
 
   # Scope
-
 
 
   enumerize :sex, in: SEX_TYPE, scope: true
