@@ -13,7 +13,6 @@ module PatientService
     def call
       start_time = Time.now
       imported_patients = 0
-
       SmarterCSV.process(@csv_file.path, chunk_size: 100) do |chunk|
         chunk.each do |row|
           data = format_patient_data(row)
@@ -22,7 +21,7 @@ module PatientService
 
           patient = find_or_initialize_patient(patient_data)
 
-          if update_patient_data(patient, patient_data)
+          if patient.update!(patient_data)
             create_or_update_address(patient, address_data)
             imported_patients += 1
           else
@@ -47,10 +46,6 @@ module PatientService
       )
     end
 
-    def update_patient_data(patient, patient_data)
-      patient.update(patient_data) && patient.valid? && patient.save!
-    end
-
     def format_patient_data(row)
       {
         patient_data:
@@ -61,7 +56,7 @@ module PatientService
             last_name: row[:last_name],
             middle_name: row[:middle_name],
             email: row[:email],
-            phone_number: row[:phone_number],
+            phone_number: row[:phone],
             sex: format_sex(row[:sex])
           },
         address_data:

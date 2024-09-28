@@ -9,9 +9,9 @@ class Patient < ApplicationRecord
   has_one :address, as: :addressable, dependent: :destroy
 
   # Validation
+  validates :health_identifier, uniqueness: { message: 'should be unique' }
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP, message: 'invalid email format' }
-  validates :email, uniqueness: { case_sensitive: false, message: ' is already taken.' }
-  validates :health_identifier, :health_province, :first_name, :last_name, presence: true
+  validates :health_identifier, :health_province, :first_name, :last_name, :email, :phone_number, :sex, presence: true
 
 
   # Scope

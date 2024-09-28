@@ -10,10 +10,10 @@ RSpec.describe Patient, type: :model do
     it { should validate_presence_of(:last_name) }
     it { should validate_presence_of(:health_province)}
     it { should validate_presence_of(:email) }
+    it { should validate_presence_of(:sex) }
     it { should allow_value('email@example.com').for(:email) }
     it { should_not allow_value('invalid_email').for(:email).with_message('invalid email format') }
-    it { should validate_uniqueness_of(:email).case_insensitive.with_message(' is already taken.') }
-
+    it { should validate_uniqueness_of(:health_identifier).with_message('should be unique') }
   end
 
   describe 'Associations' do

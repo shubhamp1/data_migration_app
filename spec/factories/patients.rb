@@ -6,6 +6,7 @@ FactoryBot.define do
     first_name { "John" }
     last_name { "Doe" }
     sex { 'male' }
+    phone_number { '1234567890' }
 
     association :address, factory: :address, strategy: :build
   end

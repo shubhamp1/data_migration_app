@@ -30,13 +30,13 @@ ActiveRecord::Schema.define(version: 2024_09_25_044738) do
   end
 
   create_table "patients", force: :cascade do |t|
-    t.string "health_identifier"
-    t.string "health_province"
-    t.string "email"
-    t.string "phone_number"
-    t.string "sex"
-    t.string "first_name"
-    t.string "last_name"
+    t.string "health_identifier", null: false
+    t.string "health_province", null: false
+    t.string "email", null: false
+    t.string "phone_number", null: false
+    t.string "sex", null: false
+    t.string "first_name", null: false
+    t.string "last_name", null: false
     t.string "middle_name"
     t.string "insurance_provider"
     t.datetime "created_at", precision: 6, null: false
