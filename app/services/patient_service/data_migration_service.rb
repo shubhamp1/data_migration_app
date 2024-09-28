@@ -29,7 +29,7 @@ module PatientService
             @error_handler.log_error(row, patient.errors.full_messages)
           end
         rescue StandardError => e
-          @error_handler.log_error(nil, e.message)
+          @error_handler.log_error(row, e.message)
         end
       end
 

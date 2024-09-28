@@ -18,7 +18,7 @@ class Address < ApplicationRecord
   belongs_to :addressable, polymorphic: true
 
   # Validation
-  validates :city, :province, presence: true
+  validates :city, :province, :postal_code, :street_address, presence: true
 
   # Scope
 end

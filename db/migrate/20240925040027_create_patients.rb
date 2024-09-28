@@ -1,7 +1,7 @@
 class CreatePatients < ActiveRecord::Migration[6.0]
   def change
     create_table :patients do |t|
-      t.integer :health_identifier
+      t.string :health_identifier
       t.string :health_province
       t.string :email
       t.string :phone_number

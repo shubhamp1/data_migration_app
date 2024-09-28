@@ -93,6 +93,11 @@ GEM
     enumerize (2.5.0)
       activesupport (>= 3.2)
     erubi (1.13.0)
+    factory_bot (6.2.1)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.2.0)
+      factory_bot (~> 6.2.0)
+      railties (>= 5.0.0)
     ffi (1.17.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
@@ -307,6 +312,7 @@ DEPENDENCIES
   countries
   devise (~> 4.9, >= 4.9.3)
   enumerize
+  factory_bot_rails
   jbuilder (~> 2.7)
   letter_opener
   listen (~> 3.2)
@@ -325,7 +331,6 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   sqlite3 (~> 1.4)
   turbolinks (~> 5)
-  tzinfo-data
   web-console (>= 3.3.0)
   webdrivers
   webpacker (~> 4.0)
