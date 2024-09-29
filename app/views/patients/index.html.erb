@@ -20,17 +20,21 @@
     </tr>
   </thead>
   <tbody>
-    <% @patients.each do |patient| %>
-      <tr>
-        <td><%= patient.health_identifier %></td>
-        <td><%= patient.first_name %></td>
-        <td><%= patient.last_name %></td>
-        <td><%= patient.email %></td>
-        <td><%= patient.phone_number %></td>
-        <td>
-          <%= link_to 'Show', patient_path(patient) %>
-        </td>
-      </tr>
+    <% if @patients %>
+      <% @patients.each do |patient| %>
+        <tr>
+          <td><%= patient.health_identifier %></td>
+          <td><%= patient.first_name %></td>
+          <td><%= patient.last_name %></td>
+          <td><%= patient.email %></td>
+          <td><%= patient.phone_number %></td>
+          <td>
+            <%= link_to 'Show', patient_path(patient) %>
+          </td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr><td>No data</td></tr>
     <% end %>
   </tbody>
 </table>

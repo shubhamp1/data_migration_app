@@ -13,16 +13,20 @@
     </tr>
   </thead>
   <tbody>
-    <% @histories.each do |history| %>
-      <tr>
-        <td><%= history.created_at.to_date %></td>
-        <td><%= history.total_records %></td>
-        <td><%= history.success_records %></td>
-        <td><%= history.skipped_records %></td>
-        <td><%= history.failed_records %></td>
-        <td><%= history.duration %></td>
-        <td><%= link_to 'View Details', migration_history_path(history) %></td>
-      </tr>
+    <% if @histories %>
+      <% @histories.each do |history| %>
+        <tr>
+          <td><%= history.created_at.to_date %></td>
+          <td><%= history.total_records %></td>
+          <td><%= history.success_records %></td>
+          <td><%= history.skipped_records %></td>
+          <td><%= history.failed_records %></td>
+          <td><%= history.duration %></td>
+          <td><%= link_to 'View Details', migration_history_path(history) %></td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr><td>No data</td></tr>
     <% end %>
   </tbody>
 </table>
