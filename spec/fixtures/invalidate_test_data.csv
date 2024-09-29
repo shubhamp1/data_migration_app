@@ -1,0 +1,6 @@
+health identifier,health identifier province,first name,last name,middle name,phone,email,address 1,address 2,address province,address city,address postal code,date of birth,sex
+13,Alberta,Barbara,Jackson,,,barbara.jackson@example.com,123 Pine Dr,,,Edmonton,,1991-08-13,M
+19,AB,,Rodriguez,Hall,403-555-4568,brian.rodriguez@example.com,123 Birch Dr,Unit 4,Alberta,Edmonton,T2P1M9,1982-07-20,M
+12,Alberta,David,Thomas,Lewis,867-555-2342,david.thomas@example,,,Alberta,Edmonton,X1A 2N9,1989-28-04,
+nil,Alberta,Elizabeth,Davis,,1-902-555-7890,elizabeth.davis@example.com,456 Pine St,,Alberta,Edmonton,,1992-02-04,F
+17,,Susan,Martin,Smith,204-555-8902,elizabeth.davis@example.com,654 Spruce St,Suite 3,Alberta,Edmonton,R3C 0R3,1985-02-16,F

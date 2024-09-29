@@ -16,6 +16,10 @@ class ErrorHandler
     @errors.size
   end
 
+  def error_array
+    @errors.map { |error_entry| error_entry[:errors] }
+  end
+
   def save_error_report
     @report_strategy.generate(@errors)
   end

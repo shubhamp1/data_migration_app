@@ -4,3 +4,33 @@
   <%= f.file_field :file %>
   <%= f.submit 'Upload CSV' %>
 <% end %>
+
+
+<h1>Patients Detalis</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Health Identifier</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Phone Number</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @patients.each do |patient| %>
+      <tr>
+        <td><%= patient.health_identifier %></td>
+        <td><%= patient.first_name %></td>
+        <td><%= patient.last_name %></td>
+        <td><%= patient.email %></td>
+        <td><%= patient.phone_number %></td>
+        <td>
+          <%= link_to 'Show', patient_path(patient) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,12 @@
+<h1>Migration Details</h1>
+<p>Date of Migration: <%= @history.created_at.to_date %></p>
+<p>Total Records: <%= @history.total_records %></p>
+<p>Success Records: <%= @history.success_records %></p>
+<p>Skipped Records: <%= @history.skipped_records %></p>
+<p>Failed Records: <%= @history.failed_records %></p>
+<p>Duration: <%= @history.duration %> seconds</p>
+
+<h2>Error Log</h2>
+<pre><%= @history.error_messages %></pre>
+
+<%= link_to 'Back to Migration History', migration_histories_path	 %>

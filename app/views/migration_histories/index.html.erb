@@ -1,0 +1,28 @@
+<h1>Migration History</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date of Migration</th>
+      <th>Total Records</th>
+      <th>Success</th>
+      <th>Skipped</th>
+      <th>Failed</th>
+      <th>Duration (seconds)</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @histories.each do |history| %>
+      <tr>
+        <td><%= history.created_at.to_date %></td>
+        <td><%= history.total_records %></td>
+        <td><%= history.success_records %></td>
+        <td><%= history.skipped_records %></td>
+        <td><%= history.failed_records %></td>
+        <td><%= history.duration %></td>
+        <td><%= link_to 'View Details', migration_history_path(history) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

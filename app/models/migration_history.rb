@@ -1,0 +1,2 @@
+class MigrationHistory < ApplicationRecord
+end

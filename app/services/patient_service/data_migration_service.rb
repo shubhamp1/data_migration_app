@@ -1,19 +1,33 @@
 require 'smarter_csv'
 require 'csv'
-require_relative '../utilities/error_handler'
 
 module PatientService
   class DataMigrationService
     def initialize(csv_file, error_handler = ErrorHandler.new)
       @csv_file = csv_file
-      @errors = []
       @error_handler = error_handler
+      @migration_history = MigrationHistory.new
+      @total_records = 0
+      @success_records = 0
+      @skipped_records = 0
+      @failed_records = 0
     end
 
     def call
       start_time = Time.now
       imported_patients = 0
+      process_csv
+
+      @error_handler.save_error_report if @error_handler.errors?
+
+      result_summary(start_time)
+    end
+
+    private
+
+    def process_csv
       SmarterCSV.process(@csv_file.path, chunk_size: 100) do |chunk|
+        @total_records += chunk.count
         chunk.each do |row|
           data = format_patient_data(row)
           patient_data = data[:patient_data]
@@ -21,23 +35,20 @@ module PatientService
 
           patient = find_or_initialize_patient(patient_data)
 
-          if patient.update!(patient_data)
+          if patient.new_record?
+            patient.update!(patient_data)
             create_or_update_address(patient, address_data)
-            imported_patients += 1
+            @success_records += 1
           else
-            @error_handler.log_error(row, patient.errors.full_messages)
+            @skipped_records += 1
           end
+  
         rescue StandardError => e
+          @failed_records += 1
           @error_handler.log_error(row, e.message)
         end
       end
-
-      @error_handler.save_error_report if @error_handler.errors?
-
-      result_summary(imported_patients, start_time)
     end
-
-    private
 
     def find_or_initialize_patient(patient_data)
       Patient.find_or_initialize_by(
@@ -87,12 +98,16 @@ module PatientService
       data.is_a?(String) ? nil : data
     end
 
-    def result_summary(imported_patients, start_time)
+    def result_summary(start_time)
       {
-        imported_patients: imported_patients,
+        total_records: @total_records,
         total_time: (Time.now - start_time).round(2),
-        errors_count: @error_handler.errors_count
+        success_records: @success_records,
+        skipped_records: @skipped_records,
+        failed_records: @error_handler.errors_count,
+        error_messages: @error_handler.error_array
       }
     end
+
   end
 end
