@@ -1,5 +1,5 @@
 <h1>Migration Details</h1>
-<p>Date of Migration: <%= @history.created_at.to_date %></p>
+<p>Date of Migration: <%= format_date_time(@history.created_at) %></p>
 <p>Total Records: <%= @history.total_records %></p>
 <p>Success Records: <%= @history.success_records %></p>
 <p>Skipped Records: <%= @history.skipped_records %></p>

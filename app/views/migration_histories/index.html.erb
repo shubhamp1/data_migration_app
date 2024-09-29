@@ -16,7 +16,7 @@
     <% if @histories %>
       <% @histories.each do |history| %>
         <tr>
-          <td><%= history.created_at.to_date %></td>
+          <td><%= format_date_time(history.created_at) %></td>
           <td><%= history.total_records %></td>
           <td><%= history.success_records %></td>
           <td><%= history.skipped_records %></td>

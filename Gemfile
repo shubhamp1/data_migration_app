@@ -21,10 +21,11 @@ gem 'jbuilder', '~> 2.7'
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-gem 'countries'
 gem 'devise', '~> 4.9', '>= 4.9.3'
 gem 'enumerize'
+gem 'redis'
 gem 'smarter_csv'
+gem 'sidekiq'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
@@ -63,6 +64,7 @@ group :test do
   gem 'rspec-core'
   gem 'rspec-rails', '~> 4.0'
   gem 'shoulda-matchers', '~> 5.3'
+  gem 'rails-controller-testing'
   gem 'webdrivers'
 end
 
