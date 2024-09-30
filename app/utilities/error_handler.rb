@@ -25,9 +25,10 @@ class ErrorHandler
   end
 end
 
+# This method export a error report
 class ExportErrorReport
   def generate(errors)
-    CSV.open('error_report.csv', 'wb') do |csv|
+    CSV.open("error_report_#{DateTime.now.strftime('%d_%m_%Y_%H_%m')}.csv", 'w') do |csv|
       csv << ['Row Data', 'Errors']
       errors.each { |error| csv << [error[:row].to_s, error[:errors]] }
     end

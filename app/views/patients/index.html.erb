@@ -20,7 +20,7 @@
     </tr>
   </thead>
   <tbody>
-    <% if @patients %>
+    <% if @patients.present? %>
       <% @patients.each do |patient| %>
         <tr>
           <td><%= patient.health_identifier %></td>

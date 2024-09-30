@@ -35,6 +35,10 @@ module PatientService
         if header == default_header
           @total_records += chunk.count
           handle_chunk(chunk)
+        else
+          error_message = 'Header is different from the expected default header'
+          @error_handler.log_error('', error_message)
+          break
         end
       end
     end
@@ -53,6 +57,7 @@ module PatientService
             create_address(patient, address_data)
             @success_records += 1
           else
+            @error_handler.log_error(row, 'Skipped')
             @skipped_records += 1
           end
         end

@@ -1,7 +1,6 @@
 require 'rails_helper'
 require 'smarter_csv'
 
-
 RSpec.describe PatientService::DataMigrationService do
   let(:validate_csv_file) { double('csv_file', path: 'spec/fixtures/test_data.csv') }
   let(:invalidate_csv_file) { double('csv_file', path: 'spec/fixtures/invalidate_test_data.csv') }

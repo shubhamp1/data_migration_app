@@ -13,7 +13,7 @@ RSpec.describe Patient, type: :model do
     it { should validate_presence_of(:sex) }
     it { should allow_value('email@example.com').for(:email) }
     it { should_not allow_value('invalid_email').for(:email).with_message('invalid email format') }
-    it { should validate_uniqueness_of(:health_identifier).with_message('should be unique') }
+    it { should validate_uniqueness_of(:health_identifier).scoped_to(:health_province).with_message('should be unique within the same province') }
   end
 
   describe 'Associations' do
